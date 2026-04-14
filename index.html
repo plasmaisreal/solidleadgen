@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+
+<!-- SEO Meta Tags -->
+<title>Solid Lead Gen | Verified Local Leads for Contractors | $297/Month</title>
+<meta name="description" content="We send 15-20 verified local leads to plumbers, HVAC techs, electricians and roofers every month. First week free. No contracts. Cancel anytime." />
+<meta property="og:title" content="Solid Lead Gen | Verified Local Leads for Contractors | $297/Month" />
+<meta property="og:description" content="We send 15-20 verified local leads to plumbers, HVAC techs, electricians and roofers every month. First week free. No contracts. Cancel anytime." />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Solid Lead Gen | Verified Local Leads for Contractors | $297/Month" />
+<meta name="twitter:description" content="We send 15-20 verified local leads to plumbers, HVAC techs, electricians and roofers every month. First week free. No contracts. Cancel anytime." />
+<!-- End SEO Meta Tags -->
+
+<script data-field-replace>
+(function(){
+  var params=new URLSearchParams(window.location.search);
+  var fields={};
+  var paramMap={
+    'first_name':'firstName','last_name':'lastName','full_name':'fullName',
+    'email':'email','phone':'phone','company':'company',
+    'city':'city','state':'state','country':'country'
+  };
+  var skipTags={'SCRIPT':1,'STYLE':1,'NOSCRIPT':1,'TEXTAREA':1,'CODE':1,'PRE':1};
+  var hasUrlFields=false;
+  for(var p in paramMap){
+    var v=params.get(p);
+    if(v){fields[paramMap[p]]=v;hasUrlFields=true;}
+  }
+  var contactId=params.get('contact_id');
+  function esc(s){
+    if(!s)return s;
+    var d=document.createElement('div');
+    d.appendChild(document.createTextNode(s));
+    return d.innerHTML;
+  }
+  function doReplace(data){
+    var r={};
+    r['{{full_name}}']=esc(((data.firstName||'')+' '+(data.lastName||'')).trim()||((data.fullName||data.name)||''));
+    r['{{first_name}}']=esc(data.firstName||(data.name?data.name.split(' ')[0]:'')||'');
+    r['{{last_name}}']=esc(data.lastName||(data.name&&data.name.indexOf(' ')>-1?data.name.substring(data.name.indexOf(' ')+1):'')||'');
+    r['{{email}}']=esc(data.email||'');
+    r['{{phone}}']=esc(data.phone||'');
+    r['{{company}}']=esc(data.company||'');
+    r['{{city}}']=esc(data.city||'');
+    r['{{state}}']=esc(data.state||'');
+    r['{{country}}']=esc(data.country||'');
+    r['{{date}}']=new Date().toLocaleDateString();
+    r['{{time}}']=new Date().toLocaleTimeString();
+    r['{{location}}']=[data.city,data.state,data.country].filter(Boolean).join(', ');
+    r['{{tracking_id}}']=esc(data.trackingId||'');
+    r['{{lastClickedProduct}}']=esc(data.lastClickedProduct||'');
+    r['{{lastProductClickDate}}']=esc(data.lastProductClickDate||'');
+    r['{{lastClickedProductPrice}}']=esc(data.lastClickedProductPrice||'');
+    r['{{lastClickedProductURL}}']=esc(data.lastClickedProductURL||'');
+    r['{{productsClickedCount}}']=esc(data.productsClickedCount||'0');
+    r['{{ip_address}}']=esc(data.ipAddress||'');
+    r['{{ip}}']=esc(data.ipAddress||'');
+    if(data.customFields){
+      for(var k in data.customFields){
+        r['{{'+k+'}}']=esc(String(data.customFields[k]||''));
+      }
+    }
+    params.forEach(function(v,k){
+      if(!paramMap[k]&&k!=='contact_id'&&k!=='page_id'&&k.indexOf('utm_')!==0){
+        r['{{'+k+'}}']=esc(v);
+      }
+    });
+    var hasValues=false;
+    for(var key in r){if(r[key]){hasValues=true;break;}}
+    if(!hasValues)return;
+    var walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{
+      acceptNode:function(n){
+        var p=n.parentNode;
+        if(p&&skipTags[p.nodeName])return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+    var node;
+    while(node=walker.nextNode()){
+      var txt=node.nodeValue;
+      if(txt&&txt.indexOf('{{')>-1){
+        var changed=txt;
+        for(var ph in r){
+          if(r[ph]&&changed.indexOf(ph)>-1){
+            changed=changed.split(ph).join(r[ph]);
+          }
+        }
+        if(changed!==txt)node.nodeValue=changed;
+      }
+    }
+    var attrs=['value','placeholder','content','alt','title'];
+    attrs.forEach(function(attr){
+      var els=document.querySelectorAll('['+attr+'*="{{"]');
+      for(var i=0;i<els.length;i++){
+        var tag=els[i].tagName;
+        if(skipTags[tag])continue;
+        var val=els[i].getAttribute(attr);
+        if(val){
+          var nv=val;
+          for(var ph in r){
+            if(r[ph]&&nv.indexOf(ph)>-1){
+              nv=nv.split(ph).join(r[ph]);
+            }
+          }
+          if(nv!==val)els[i].setAttribute(attr,nv);
+        }
+      }
+    });
+  }
+  function run(){
+    if(contactId){
+      var xhr=new XMLHttpRequest();
+      xhr.open('GET','https://paymegpt.com/api/landing/context/'+encodeURIComponent(contactId)+'?page_id=3243');
+      xhr.onload=function(){
+        if(xhr.status===200){
+          try{
+            var resp=JSON.parse(xhr.responseText);
+            if(resp.success&&resp.contact){
+              var merged=resp.contact;
+              for(var k in fields){merged[k]=fields[k];}
+              doReplace(merged);
+              return;
+            }
+          }catch(e){}
+        }
+        if(hasUrlFields)doReplace(fields);
+      };
+      xhr.onerror=function(){if(hasUrlFields)doReplace(fields);};
+      xhr.send();
+    }else if(hasUrlFields){
+      doReplace(fields);
+    }
+  }
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',run);}
+  else{run();}
+})();
+</script>
+<script data-payment>
+(function(){
+  var slug='NRmi6ddq';
+  var apiBase='https://paymegpt.com';
+  function findEmail(){
+    var ids=['email','emailAddress','buyer-email','buyerEmail','user-email','userEmail','checkout-email','customer-email','contact-email'];
+    for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]);if(el&&el.value&&el.value.includes('@'))return el.value.trim();}
+    var inputs=document.querySelectorAll('input[type="email"],input[name*="email"],input[placeholder*="email"],input[placeholder*="Email"]');
+    for(var j=0;j<inputs.length;j++){if(inputs[j].value&&inputs[j].value.includes('@'))return inputs[j].value.trim();}
+    return '';
+  }
+  function findName(){
+    var ids=['name','fullName','full-name','buyer-name','buyerName','customer-name','userName','user-name'];
+    for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]);if(el&&el.value)return el.value.trim();}
+    var inputs=document.querySelectorAll('input[name*="name"]:not([name*="email"]):not([type="email"]),input[placeholder*="name"]:not([placeholder*="email"]):not([type="email"]),input[placeholder*="Name"]:not([type="email"])');
+    for(var j=0;j<inputs.length;j++){if(inputs[j].value)return inputs[j].value.trim();}
+    return '';
+  }
+  var __realProcessPayment=function(a,b,c,d,e){
+    var amountCents,email,productName,productDescription,customerName,quantity;
+    if(a&&typeof a==='object'){
+      amountCents=a.amountCents;email=a.email;productName=a.productName;
+      productDescription=a.productDescription||'';customerName=a.name||'';quantity=a.quantity||1;
+    }else{
+      amountCents=typeof a==='number'?a:0;productName=typeof b==='string'?b:'';
+      productDescription=typeof c==='string'?c:'';email='';customerName='';quantity=1;
+    }
+    if(!email)email=findEmail();
+    if(!customerName)customerName=findName();
+    if(!productName){alert('Product name is required.');return Promise.reject('no_product_name');}
+    if(!amountCents||amountCents<100){alert('Amount must be at least $1.00');return Promise.reject('invalid_amount');}
+    if(!email){alert('Please enter your email address.');return Promise.reject('no_email');}
+    var successBase=window.location.href.split('?')[0];
+    return fetch(apiBase+'/api/landing-pages/public/'+slug+'/payment/checkout',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({email:email,name:customerName,amountCents:amountCents,productName:productName,productDescription:productDescription,quantity:quantity,successUrl:successBase+'?payment=success&product='+encodeURIComponent(productName)+'&session_id={CHECKOUT_SESSION_ID}',cancelUrl:successBase+'?payment=cancelled'})
+    }).then(function(r){return r.json();}).then(function(d){
+      if(d.checkoutUrl){window.location.href=d.checkoutUrl;}
+      else{alert(d.error||'Failed to process payment');throw new Error(d.error);}
+    });
+  };
+  Object.defineProperty(window,'__processPayment',{value:__realProcessPayment,writable:false,configurable:false});
+  document.addEventListener('DOMContentLoaded',function(){
+    var urlParams=new URLSearchParams(window.location.search);
+    if(urlParams.get('payment')==='success'){
+      var pName=urlParams.get('product')||'your item';
+      var overlay=document.createElement('div');overlay.id='payment-success-overlay';
+      overlay.style.cssText='position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:999999;font-family:system-ui,-apple-system,sans-serif;';
+      overlay.innerHTML='<div style="background:white;border-radius:16px;padding:40px;max-width:420px;width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.15);"><div style="width:64px;height:64px;border-radius:50%;background:#dcfce7;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><h2 style="margin:0 0 12px;font-size:24px;font-weight:700;color:#111827;">Payment Successful!</h2><p style="margin:0 0 24px;color:#6b7280;font-size:16px;">Thank you for purchasing '+pName.replace(/</g,'&lt;').replace(/>/g,'&gt;')+'.</p><button onclick="document.getElementById(\'payment-success-overlay\').remove();window.history.replaceState({},\'\',window.location.pathname);" style="padding:12px 32px;font-size:16px;font-weight:600;background:#16a34a;color:white;border:none;border-radius:8px;cursor:pointer;">Continue</button></div>';
+      document.body.appendChild(overlay);
+    }
+  });
+})();
+</script>  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="#" class="nav-logo">
+    <div class="logo-icon"><i class="fas fa-bullseye"></i></div>
+    <div class="logo-name">Solid<span>Lead</span>Gen</div>
+  </a>
+  <a href="#signup" class="nav-cta">Start Free Trial →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-label"><span class="dot"></span>For Plumbers, HVAC, Electricians & Roofers</div>
+  <h1>Stop Chasing Jobs.<br><span class="hl">We Send Them to You.</span><br><span class="or">On Autopilot.</span></h1>
+  <p class="hero-sub">We find homeowners actively looking for a contractor in <strong>your trade and your zip code</strong> — then we send you their contact info, verified and ready to call. 15–20 leads per month. <strong>First week free.</strong></p>
+  <div class="hero-btns">
+    <a href="#signup" class="btn-hero"><i class="fas fa-rocket"></i>Get My Free Week of Leads</a>
+    <a href="#how" class="btn-hero2"><i class="fas fa-play-circle"></i>See How It Works</a>
+  </div>
+  <div class="hero-proof">
+    <span class="hp"><i class="fas fa-shield-halved"></i>No contracts</span>
+    <span class="hero-divider"></span>
+    <span class="hp"><i class="fas fa-times-circle"></i>No setup fee</span>
+    <span class="hero-divider"></span>
+    <span class="hp"><i class="fas fa-lock"></i>1 contractor per zip</span>
+    <span class="hero-divider"></span>
+    <span class="hp"><i class="fas fa-bolt"></i>Leads start in 48 hrs</span>
+  </div>
+</section>
+
+<!-- TRUST STRIP -->
+<div class="trust">
+  <div class="trust-inner">
+    <span class="ti"><i class="fas fa-check-circle"></i>Verified Contact Info</span>
+    <span class="ti"><i class="fas fa-map-marker-alt"></i>Your City Only</span>
+    <span class="ti"><i class="fas fa-crown"></i>Exclusive Per Zip Code</span>
+    <span class="ti"><i class="fas fa-calendar-check"></i>Cancel Anytime</span>
+    <span class="ti"><i class="fas fa-gift"></i>First Week FREE</span>
+  </div>
+</div>
+
+<!-- PAIN -->
+<section class="section pain" id="why">
+  <div class="section-inner">
+    <div class="pain-grid">
+      <div class="fade-up">
+        <div class="section-label">The Problem We Solve</div>
+        <h2 class="section-title">Slow Weeks Are Killing Your Business</h2>
+        <p class="section-sub" style="margin-bottom:32px;">You're great at your trade. But between jobs, you're hustling for the next call — posting on Nextdoor, asking for referrals, hoping Google works. There's a better way.</p>
+        <div class="pain-list">
+          <div class="pain-item"><div class="pi pi-r"><i class="fas fa-phone-slash"></i></div><div><h4>"Where are the jobs this week?"</h4><p>Slow seasons hit hard when you rely on word of mouth. 3 slow days = $1,200+ you didn't earn. We solve that.</p></div></div>
+          <div class="pain-item"><div class="pi pi-y"><i class="fas fa-users"></i></div><div><h4>Competing on 5 sites for the same job</h4><p>HomeAdvisor, Thumbtack, Angi — you pay per lead, fight 6 competitors, and still lose half. Our leads are yours exclusively.</p></div></div>
+          <div class="pain-item"><div class="pi pi-b"><i class="fas fa-dollar-sign"></i></div><div><h4>Marketing costs more than it makes</h4><p>Facebook ads. Google ads. Yard signs. Most contractors spend $500-2,000/month and can't track what works. We track everything.</p></div></div>
+          <div class="pain-item"><div class="pi pi-r"><i class="fas fa-clock"></i></div><div><h4>You're the owner AND the dispatcher</h4><p>Answering quotes, following up with leads, managing the schedule — you're too busy running the business to actually build it.</p></div></div>
+        </div>
+      </div>
+      <div class="fade-up">
+        <div class="pain-img">
+          <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=700&q=80" alt="Contractor working">
+          <div class="pain-img-overlay"></div>
+          <div class="pain-img-cta">
+            <h3>You fix things. We fill your schedule.</h3>
+            <a href="#signup" class="pain-cta-btn"><i class="fas fa-arrow-right"></i>Get My Free Trial</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section how" id="how">
+  <div class="section-inner">
+    <div class="fade-up" style="text-align:center;">
+      <div class="section-label">How It Works</div>
+      <h2 class="section-title">Up and Running in 48 Hours. Then It Runs Itself.</h2>
+      <p class="section-sub" style="margin:0 auto;">No tech setup. No ad budget. No learning curve. You tell us your trade and your zip — we do the rest.</p>
+    </div>
+    <div class="how-steps">
+      <div class="hs fade-up"><div class="hs-num"><i class="fas fa-map-marker-alt" style="font-size:24px;"></i></div><h4>You Tell Us Your Zone</h4><p>Your trade, zip code, and the types of jobs you want. Takes 2 minutes.</p></div>
+      <div class="hs fade-up"><div class="hs-num"><i class="fas fa-search" style="font-size:22px;"></i></div><h4>We Find Active Homeowners</h4><p>Our system surfaces people actively looking for a contractor in your area right now.</p></div>
+      <div class="hs fade-up"><div class="hs-num"><i class="fas fa-check-double" style="font-size:22px;"></i></div><h4>We Verify Every Lead</h4><p>Name, phone, address, job type, and urgency level. Only real people who need real work done.</p></div>
+      <div class="hs fade-up"><div class="hs-num"><i class="fas fa-sms" style="font-size:22px;"></i></div><h4>You Get the Text</h4><p>Lead hits your phone instantly. Call within 5 minutes and your contact rate is over 80%.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- OFFER + PRICING -->
+<section class="section offer" id="pricing">
+  <div class="section-inner">
+    <div class="fade-up">
+      <div class="section-label">What You Get</div>
+      <h2 class="section-title">Everything You Need to Stay Booked Solid</h2>
+    </div>
+    <div class="offer-grid">
+      <div class="offer-list fade-up">
+        <div class="ol"><div class="ol-check"><i class="fas fa-check"></i></div><div><strong>15–20 Verified Local Leads Per Month</strong><span>Name, phone, address, job type, urgency. Real people who need your service in your zip code.</span></div></div>
+        <div class="ol"><div class="ol-check"><i class="fas fa-check"></i></div><div><strong>Exclusive to Your Trade & Zip Code</strong><span>We never sell the same lead to two contractors. When you claim your zone, it's yours.</span></div></div>
+        <div class="ol"><div class="ol-check"><i class="fas fa-check"></i></div><div><strong>Instant Text Delivery</strong><span>Leads hit your phone the moment we verify them. First call wins — and you're always first.</span></div></div>
+        <div class="ol"><div class="ol-check"><i class="fas fa-check"></i></div><div><strong>Monthly Lead Quality Report</strong><span>See exactly which leads converted, what they were worth, and how to improve your close rate.</span></div></div>
+        <div class="ol"><div class="ol-check"><i class="fas fa-check"></i></div><div><strong>First Week FREE — Zero Risk</strong><span>See the quality before you spend a dollar. If the leads aren't right for you, cancel with no charge.</span></div></div>
+        <div class="ol"><div class="ol-check"><i class="fas fa-check"></i></div><div><strong>Dedicated Account Support</strong><span>Real people who know your market. Text us any time about your leads or your account.</span></div></div>
+      </div>
+      <div class="fade-up" id="pricing">
+        <div class="price-card">
+          <div class="pc-label">⚡ Most Popular</div>
+          <div class="pc-free">🎁 First week completely FREE</div>
+          <div class="pc-price"><sup>$</sup>297</div>
+          <div class="pc-period">per month · cancel anytime</div>
+          <div class="pc-features">
+            <div class="pf"><i class="fas fa-check-circle"></i>15–20 verified leads/month</div>
+            <div class="pf"><i class="fas fa-check-circle"></i>Exclusive zip code lock</div>
+            <div class="pf"><i class="fas fa-check-circle"></i>Instant SMS delivery</div>
+            <div class="pf"><i class="fas fa-check-circle"></i>Name, phone, address, job type</div>
+            <div class="pf"><i class="fas fa-check-circle"></i>Monthly performance report</div>
+            <div class="pf"><i class="fas fa-check-circle"></i>Account support included</div>
+            <div class="pf"><i class="fas fa-times-circle" style="color:rgba(255,255,255,.3)"></i>No setup fee</div>
+            <div class="pf"><i class="fas fa-times-circle" style="color:rgba(255,255,255,.3)"></i>No long-term contract</div>
+          </div>
+          <a href="#signup" class="pc-btn">Start My Free Week →</a>
+          <div class="pc-note">Billing starts after your free trial. Cancel anytime via text.</div>
+          <div class="pc-exclusivity">🔒 Only 1 contractor per trade per zip. Once your zone is claimed, it's closed to competitors.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRADES WE SERVE -->
+<div class="trades">
+  <div class="trades-inner">
+    <div class="section-label" style="margin:0 auto 12px;">Who We Work With</div>
+    <h2 class="section-title" style="text-align:center;">Every Trade. Every City in California.</h2>
+    <div class="trade-chips">
+      <span class="tchip">🔧 Plumbers</span>
+      <span class="tchip">❄️ HVAC</span>
+      <span class="tchip">⚡ Electricians</span>
+      <span class="tchip">🏠 Roofers</span>
+      <span class="tchip">🏗️ General Contractors</span>
+      <span class="tchip">🌿 Landscapers</span>
+      <span class="tchip">🪟 Window & Door</span>
+      <span class="tchip">🎨 Painters</span>
+      <span class="tchip">🚿 Bathroom Remodel</span>
+      <span class="tchip">🔨 Handyman</span>
+      <span class="tchip">🐛 Pest Control</span>
+      <span class="tchip">🧼 Pressure Washing</span>
+    </div>
+  </div>
+</div>
+
+<!-- TESTIMONIALS -->
+<section class="section tests" id="reviews">
+  <div class="section-inner">
+    <div class="fade-up" style="text-align:center;">
+      <div class="section-label">Contractor Results</div>
+      <h2 class="section-title">They Were Skeptical Too. Then the Leads Started Coming.</h2>
+    </div>
+    <div class="tests-grid">
+      <div class="tc2 fade-up">
+        <div class="tc2-stars">★★★★★</div>
+        <p class="tc2-text">"I was getting maybe 8 jobs a month from word of mouth. First batch of leads from Solid Lead Gen, I closed 4 of them. That's $3,800 in my first week. I was on the phone with 3 other services but this one actually worked."</p>
+        <div class="tc2-meta"><div class="tc2-av">CJ</div><div><div class="tc2-name">Carlos J.</div><div class="tc2-trade">Plumber — Palmdale, CA</div><div class="tc2-rev">+$3,800 first week</div></div></div>
+      </div>
+      <div class="tc2 fade-up">
+        <div class="tc2-stars">★★★★★</div>
+        <p class="tc2-text">"Summer's our busy season but winter used to kill us. I signed up in November and stayed booked all the way through February. First time that's ever happened. The leads are real people — not tire kickers from Thumbtack."</p>
+        <div class="tc2-meta"><div class="tc2-av">AM</div><div><div class="tc2-name">Angela M.</div><div class="tc2-trade">HVAC Owner — Lancaster, CA</div><div class="tc2-rev">Booked through winter</div></div></div>
+      </div>
+      <div class="tc2 fade-up">
+        <div class="tc2-stars">★★★★★</div>
+        <p class="tc2-text">"I close about 35% of the leads they send me. Average job for me is $900. At 15 leads a month that's 5 jobs = $4,500. I'm paying $297 and making $4,500. The math doesn't need explaining. I've been a client for 6 months."</p>
+        <div class="tc2-meta"><div class="tc2-av">RV</div><div><div class="tc2-name">Roberto V.</div><div class="tc2-trade">Electrician — Santa Clarita, CA</div><div class="tc2-rev">15x ROI per month</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SIGNUP FORM -->
+<section class="signup" id="signup">
+  <div class="signup-inner">
+    <div class="signup-left fade-up">
+      <div class="signup-label">🎁 Start Your Free Trial</div>
+      <h2 class="signup-title">Get Your First Week of Leads <span>For Free.</span></h2>
+      <p class="signup-sub">Fill out the form — leads start flowing to your phone within 48 hours. See the quality before you spend a dollar. No card required for your free trial week.</p>
+      <div class="signup-trust">
+        <span class="st"><i class="fas fa-shield-halved"></i>No credit card for free week</span>
+        <span class="st"><i class="fas fa-bolt"></i>Leads start within 48 hours</span>
+        <span class="st"><i class="fas fa-lock"></i>Your zip code locked — exclusively yours</span>
+        <span class="st"><i class="fas fa-times"></i>Cancel anytime, no questions</span>
+        <span class="st"><i class="fas fa-phone"></i>Real support via text/call</span>
+      </div>
+    </div>
+    <div class="fade-up">
+      <div class="signup-form" id="signupForm">
+        <h3>🔥 Claim Your Free Trial Week</h3>
+        <p>One spot per trade per zip. Lock yours in now.</p>
+        <div class="fg"><label>Your Name</label><input class="fi" type="text" id="sl-name" placeholder="First & Last Name"></div>
+        <div class="fg"><label>Your Phone (leads come here)</label><input class="fi" type="tel" id="sl-phone" placeholder="(661) 000-0000"></div>
+        <div class="fg"><label>Email Address</label><input class="fi" type="email" id="sl-email" placeholder="you@yourcompany.com"></div>
+        <div class="fg"><label>Your Trade</label>
+          <select class="fs" id="sl-trade">
+            <option value="">— Select Your Trade —</option>
+            <option>Plumbing</option><option>HVAC</option><option>Electrical</option>
+            <option>Roofing</option><option>General Contracting</option><option>Landscaping</option>
+            <option>Painting</option><option>Bathroom / Kitchen Remodel</option>
+            <option>Handyman</option><option>Pest Control</option><option>Other</option>
+          </select>
+        </div>
+        <div class="fg"><label>Your City + Zip Code</label><input class="fi" type="text" id="sl-city" placeholder="Palmdale, CA 93550"></div>
+        <div class="fg"><label>Business Name</label><input class="fi" type="text" id="sl-biz" placeholder="Your Company Name"></div>
+        <button class="signup-btn" onclick="submitSignup()">🚀 Start My Free Trial Week</button>
+        <div class="form-note">By submitting you agree to receive SMS leads. Reply STOP to unsubscribe.</div>
+      </div>
+      <div class="form-success" id="signupSuccess">
+        <div class="si">🎉</div>
+        <h4 style="font-family:'Montserrat',sans-serif;font-weight:800;color:#fff;font-size:20px;margin-bottom:10px;">You're In!</h4>
+        <p style="color:rgba(255,255,255,.65);font-size:14px;line-height:1.7;">Your free trial week is confirmed. Your first leads will hit your phone within 48 hours. Watch for texts from our system — that's how we send you leads. Welcome to Solid Lead Gen.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AI CHAT STRIP -->
+<div class="ai-strip">
+  <div class="ai-strip-inner">
+    <div class="ai-badge">💬 AI AGENT</div>
+    <p>Questions? Our AI intake agent is live right now and can answer anything.</p>
+    <a href="https://paymegpt.com/agents/49029850" target="_blank"><i class="fas fa-comment-dots"></i>Chat with AI Now</a>
+  </div>
+</div>
+
+<!-- URGENCY CTA -->
+<section class="urgency">
+  <h2>One Spot Per Trade Per Zip. Once It's Gone, It's Gone.</h2>
+  <p>We only work with one plumber, one HVAC tech, one electrician per zip code. The moment your competitor claims Palmdale plumbing leads — you can't. Claim your zone now before they do.</p>
+  <div class="urgency-btns">
+    <a href="#signup" class="btn-wh"><i class="fas fa-lock"></i> Lock My Zone — Free Week</a>
+    <a href="tel:8558700042" class="btn-dk"><i class="fas fa-phone"></i> Call Us: (855) 870-0042</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="nav-logo" style="display:flex;text-decoration:none;">
+          <div class="logo-icon"><i class="fas fa-bullseye"></i></div>
+          <div class="logo-name" style="color:#fff;margin-left:10px;">Solid<span>Lead</span>Gen</div>
+        </a>
+        <p>Verified local leads for contractors and service businesses in California. First week free. No contracts. One contractor per zip.</p>
+      </div>
+      <div class="footer-col"><h4>Services</h4><ul><li><a href="#pricing">Lead Gen — $297/mo</a></li><li><a href="#how">How It Works</a></li><li><a href="#reviews">Client Results</a></li><li><a href="#signup">Free Trial</a></li></ul></div>
+      <div class="footer-col"><h4>Contact</h4><ul><li><a href="tel:8558700042">(855) 870-0042</a></li><li><a href="mailto:hello@solidleadgen.com">hello@solidleadgen.com</a></li><li><a href="https://paymegpt.com/agents/49029850">Chat with AI Agent</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© 2025 Solid Lead Gen | A Silent Crane Company. All rights reserved.</span><div style="display:flex;gap:14px;"><a href="#">Privacy</a><a href="#">Terms</a></div></div>
+  </div>
+</footer>
+
+<a href="#signup" class="float-btn"><i class="fas fa-arrow-up"></i></a>
+
+<script>
+// Reveal
+const obs = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('vis'); }), {threshold:.1,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+// FORM SUBMIT
+function submitSignup() {
+  var name = document.getElementById('sl-name').value.trim();
+  var phone = document.getElementById('sl-phone').value.trim();
+  var email = document.getElementById('sl-email').value.trim();
+  var trade = document.getElementById('sl-trade').value;
+  var city = document.getElementById('sl-city').value.trim();
+  var biz = document.getElementById('sl-biz').value.trim();
+  if (!name || !phone || !trade || !city) { alert('Please fill in your name, phone, trade, and city to claim your free trial!'); return; }
+
+  // Fire onboarding flow
+  fetch('https://paymegpt.com/api/webhooks/flow/2339/c06314e76cf849ae82f6c1cb53fc72118da257b1ee3fc3d927297bf2087d9abe', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      contactName: name,
+      contactPhone: phone,
+      contactEmail: email,
+      data: { client_name: name, business_name: biz, trade: trade, city: city, phone_number: phone }
+    })
+  }).catch(() => {});
+
+  document.getElementById('signupForm').style.display = 'none';
+  document.getElementById('signupSuccess').style.display = 'block';
+}
+</script>
+</body>
+</html>
